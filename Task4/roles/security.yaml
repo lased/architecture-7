@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: security
+rules:
+- apiGroups: [""]
+  resources: ["secrets", "networkpolicies", "events", "pods/log"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources: ["*"]
+  verbs: ["get", "list", "watch"]
