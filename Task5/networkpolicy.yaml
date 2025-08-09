@@ -1,0 +1,35 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: admin-policy
+  namespace: apps
+spec:
+  endpointSelector:
+    matchLabels:
+      role: admin-back-end-api
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        role: admin-front-end
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        role: admin-front-end
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: non-admin-policy
+  namespace: apps
+spec:
+  endpointSelector:
+    matchLabels:
+      role: back-end-api
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        role: front-end
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        role: front-end
